@@ -52,28 +52,24 @@
 
 package editor.cn;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
-public class BinaryWatch {
+public class BinaryWatch{
     public static void main(String[] args) {
         Solution solution = new BinaryWatch().new Solution();
-        System.out.println(solution.find(60, 3, 6));
+//        System.out.println(solution.find(60, 0, 6));
+//        System.out.println(solution.find(12, 0, 4));
+        solution.readBinaryWatch(6);
 
     }
-
     //leetcode submit region begin(Prohibit modification and deletion)
-    class Solution {
-        LinkedList<Integer> integers = new LinkedList<>();
-
-        public Solution() {
-            for (int i = 0; i < 6; i++) {
-                this.integers.add(1 << i);
-            }
-        }
+class Solution {
+//    public List<String> readBinaryWatch(int turnedOn) {
 
         public List<String> readBinaryWatch(int turnedOn) {
             LinkedList<String> res = new LinkedList<>();
-            if (turnedOn < 1 || turnedOn > 8) {
+            if (turnedOn < 0 || turnedOn > 8) {
                 return res;
             }
             final int hourNumMax = 3;
@@ -82,9 +78,9 @@ public class BinaryWatch {
             final int minuteNumMax = 5;
             final int minuteMax = 60;
             final int minuteTotal = 6;
-            for (int i = 1; i <= hourNumMax; i++) {
+            for (int i = 0; i <= hourNumMax; i++) {
                 if (turnedOn - i > minuteNumMax || turnedOn - i < 0) {
-                    break;
+                    continue;
                 }
                 List<Integer> hourList = this.find(hourMax, i, hourTotal);
                 List<Integer> minuteList = this.find(minuteMax, turnedOn - i, minuteTotal);
@@ -105,7 +101,7 @@ public class BinaryWatch {
             Bt bt = new Bt();
             int[] l = new int[total];
             for (int i = 0; i < total; i++) {
-                l[i] = integers.get(i);
+                l[i] = 1<<i;
             }
             bt.backtrack(max, num, l, new LinkedList<>());
             return bt.result;
