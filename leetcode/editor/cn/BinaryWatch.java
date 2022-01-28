@@ -52,18 +52,19 @@
 
 package editor.cn;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class BinaryWatch {
     public static void main(String[] args) {
         Solution solution = new BinaryWatch().new Solution();
+        System.out.println(solution.find(60, 3, 6));
+
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         LinkedList<Integer> integers = new LinkedList<>();
+
         public Solution() {
             for (int i = 0; i < 6; i++) {
                 this.integers.add(1 << i);
@@ -76,34 +77,65 @@ public class BinaryWatch {
                 return res;
             }
             final int hourNumMax = 3;
-            final int hourMax = 11;
+            final int hourMax = 12;
+            final int hourTotal = 4;
             final int minuteNumMax = 5;
-            final int minuteMax = 59;
+            final int minuteMax = 60;
+            final int minuteTotal = 6;
             for (int i = 1; i <= hourNumMax; i++) {
                 if (turnedOn - i > minuteNumMax || turnedOn - i < 0) {
                     break;
                 }
-                List<String> hourList =this.find(hourMax, i);
-                List<String> minuteList = this.find(minuteMax, turnedOn-i);
-                for (String hour : hourList) {
-                    for (String minute : minuteList) {
-                        res.add(hour+":"+minute);
+                List<Integer> hourList = this.find(hourMax, i, hourTotal);
+                List<Integer> minuteList = this.find(minuteMax, turnedOn - i, minuteTotal);
+                for (Integer hour : hourList) {
+                    for (Integer minute : minuteList) {
+                        String v = hour + ":";
+                        if (minute < 10)
+                            v += "0";
+                        res.add(v+minute);
                     }
                 }
             }
 
             return res;
         }
-        List<String> find(int max, int num){
-            ArrayList<String> res = new ArrayList<>();
-            int sum = 0;
-            for (int i = 0; i < num; i++) {
-                if (sum + this.integers.get(i) > max){
 
+        List<Integer> find(int max, int num, int total) {
+            Bt bt = new Bt();
+            int[] l = new int[total];
+            for (int i = 0; i < total; i++) {
+                l[i] = integers.get(i);
+            }
+            bt.backtrack(max, num, l, new LinkedList<>());
+            return bt.result;
+        }
+
+        class Bt {
+            List<Integer> result = new LinkedList<>();
+
+            void backtrack(int max, int num, int[] list, LinkedList<Integer> trace) {
+                if (trace.size() == num && sum(trace) < max) {
+                    if (!result.contains(sum(trace)))
+                        result.add(sum(trace));
+                    return;
+                }
+                for (int l : list) {
+                    if (trace.contains(l) || l + sum(trace) > max)
+                        continue;
+                    trace.add(l);
+                    backtrack(max, num, list, trace);
+                    trace.removeLast();
                 }
             }
-            return res;
 
+            int sum(LinkedList<Integer> input) {
+                int s = 0;
+                for (Integer integer : input) {
+                    s += integer;
+                }
+                return s;
+            }
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
