@@ -45,7 +45,7 @@
 
 package editor.cn;
 
-class ReverseInteger {
+public class ReverseInteger {
     public static void main(String[] args) {
         Solution solution = new ReverseInteger().new Solution();
         solution.reverse(1534236469);

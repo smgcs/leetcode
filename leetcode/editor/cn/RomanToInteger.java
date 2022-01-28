@@ -81,7 +81,7 @@ package editor.cn;
 
 import java.util.HashMap;
 
-class RomanToInteger{
+public class RomanToInteger{
     public static void main(String[] args) {
         Solution solution = new RomanToInteger().new Solution();
     }

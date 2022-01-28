@@ -59,7 +59,7 @@ package editor.cn;
 import java.util.HashMap;
 import java.util.Stack;
 
-class ValidParentheses {
+public class ValidParentheses {
     public static void main(String[] args) {
         Solution solution = new ValidParentheses().new Solution();
         System.out.println(solution.isValid("){"));
