@@ -40,7 +40,7 @@
 // 
 // -2³¹ <= x <= 2³¹ - 1 
 // 
-// Related Topics 数学 👍 3369 👎 0
+// Related Topics 数学 👍 3371 👎 0
 
 
 package editor.cn;
@@ -48,15 +48,14 @@ package editor.cn;
 public class ReverseInteger {
     public static void main(String[] args) {
         Solution solution = new ReverseInteger().new Solution();
-        solution.reverse(1534236469);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int reverse(int x) {
-        if (x == -2147483648){
-            return 0;
-        }
+            if (x == -2147483648) {
+                return 0;
+            }
             if (x < 0) {
                 return reverse(x * -1) * -1;
             }

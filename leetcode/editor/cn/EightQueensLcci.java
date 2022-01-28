@@ -3,7 +3,7 @@
 //
 // 注意：本题相对原题做了扩展 
 //
-// 示例:
+// 示例: 
 //
 //  输入：4
 // 输出：[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
@@ -32,10 +32,7 @@ import java.util.List;
 public class EightQueensLcci {
     public static void main(String[] args) {
         Solution solution = new EightQueensLcci().new Solution();
-        System.out.println(solution.generateQueen(4));
-        System.out.println(solution.solveNQueens(4));
     }
-
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
@@ -53,7 +50,7 @@ public class EightQueensLcci {
                 return;
             }
             for (int i = 0; i < container.size(); i++) {
-                if (conflict(trace, container.get(i), i) || trace.contains(container.get(i))){
+                if (conflict(trace, container.get(i), trace.size()) || trace.contains(container.get(i))) {
                     continue;
                 }
                 trace.add(container.get(i));
@@ -67,7 +64,7 @@ public class EightQueensLcci {
             for (int i = 0; i < selected.size(); i++) {
                 int x = selected.get(i).indexOf("Q") - current.indexOf("Q");
                 int y = i - cid;
-                if ((x == y) || (x == -1 * y) || (x == 0)){
+                if ((x == y) || (x == -1 * y) || (x == 0)) {
                     return true;
                 }
             }
